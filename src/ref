@@ -1,0 +1,181 @@
+import React, { useState, useEffect } from 'react';
+import './App.css';
+import axios from 'axios'
+import InfiniteScroll from 'react-infinite-scroll-component'
+import Post from './Post'
+
+export default function App() {
+
+  const [posts, setPosts] = useState([])
+  const [start, setStart] = useState(0)
+  const [count, setCount] = useState(30)
+  const [hasMore, setHasMore] = useState(false)
+  const [oddEvenFilter, setOddEvenFilter] = useState("All")
+  const [searchTitle, setSearchTitle] = useState("")
+  const [searchId, setSearchId] = useState("")
+  const [filteredData, setFilteredData] = useState([])
+
+  
+  
+  useEffect(() => {
+    console.log("useEffect")
+    axios({
+      method: 'get',
+      url: `https://jsonplaceholder.typicode.com/photos`
+      
+    })
+    .then(res => {
+      let data = res.data.slice(start, count)
+      setPosts(prevState => [...prevState, ...data])
+      setStart(start+30)
+      setCount(count+30)
+      setHasMore(true)
+    })
+    .catch(error => console.log(error))
+  },[])
+
+  
+
+  const fetchData = (start, length) => {
+    axios({
+      method: 'get',
+      url: `https://jsonplaceholder.typicode.com/photos`
+      
+    })
+    .then(res => {
+      let data = res.data.slice(start, length)
+      setPosts(prevState => [...prevState, ...data])
+      setStart(start+30)
+      setCount(count+30)
+      if(data.length === 0){
+        setHasMore(false)
+      }
+    })
+    .catch(error => console.log(error))
+  }
+
+  console.log(posts)
+  console.log(start)
+  console.log(count)
+
+  //<button onClick={() => fetchData(start, count)}>More Posts</button>
+  /*
+  useEffect(() => {
+    console.log("useEffect")
+    fetchData(start, count)
+  },[])
+  <div className="post">
+            <div className="post-img" style={{background: "url('https://www.improgrammer.net/wp-content/uploads/2018/10/Most-Popular-javascrit-Frameworks-1.jpg')"}}></div>
+              <div className="details">
+                <h4>Top 10 Javascript Frameworks</h4>
+              </div>
+            </div>
+
+            <h1 style={style}>{post.id}</h1>
+
+            const style = {
+    height: 30,
+    border: "1px solid green",
+    margin: 6,
+    padding: 8
+  }
+
+  <div className="blog-container">
+        </div>
+  */
+
+  const displayMessage = () => {
+    if(hasMore){
+      return(
+        <span className="display">Scroll Down for More Posts</span>
+      )
+    }else{
+      return(
+        <span className="display">No more Posts to display</span>
+      )
+    }
+  }
+
+  const style ={
+    padding: "80px 0",
+    display: "grid",
+    gridTemplateColumns: "1fr 1fr",
+    gridAutoRows: "588px",
+    gridGap: "15px",
+    overflow: "hidden"
+  }
+
+  const handleChange  = (event) => {
+    console.log(event.target.name)
+    console.log(event.target.value)
+
+    if(event.target.name === "searchId"){
+      setSearchId(event.target.value)
+    }
+    if(event.target.name === "searchTitle"){
+      setSearchTitle(event.target.value)
+    }
+    
+  }
+
+  useEffect(() => {
+    let filteredData = posts
+
+    if(searchId !== ""){
+      filteredData = filteredData.filter(item => {
+        console.log(item.id == searchId)
+        return item.id == searchId ? item : "" 
+      })
+    }
+
+    if(searchTitle !== ""){
+      filteredData = filteredData.filter(item => {
+        return item.title.toLowerCase().includes(searchTitle.toLowerCase().trim()) ? item : ""
+      })
+    }
+
+    
+
+    console.log(filteredData)
+    setFilteredData(filteredData)
+  }, [posts, searchId, searchTitle])
+
+  //console.log(searchId)
+  //console.log(filteredData)
+  return (
+    <section id="blog-section">
+      <div className="container">
+        <div className="title">
+          <h3>Fintros</h3>
+          <h1>Daily Blog Posts</h1>
+          <p>Interesting people sharing their thoughts</p>
+        </div>
+        <div className="filter">
+          <h4>Apply a filter to your blog search today</h4>
+            <select name="numberFilter" className="numberFilter" onChange="">
+             <option>All</option>
+             <option>Even</option>
+             <option>Odd</option>
+            </select>
+          <input type="text" name="searchTitle" className="searchTitle" value={searchTitle} onChange={handleChange} placeholder="Search by Title"></input>
+          <input type="text" name="searchId" className="searchId" value={searchId} onChange={handleChange} placeholder="Search by ID number"></input>
+          <label>Toggle Switch</label>
+        </div>
+        <InfiniteScroll
+              dataLength={10}
+              next={() => fetchData(start, count)}
+              hasMore={hasMore}
+              style={style}
+              scrollThreshold={1}
+            >
+              {filteredData.map(post => 
+                (
+                  <Post key={post.id} post={post} />
+                )
+              )}
+            </InfiniteScroll>
+            <div className="message">{displayMessage()}</div>
+      </div>
+    </section>
+  );
+}

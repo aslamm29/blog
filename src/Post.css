@@ -1,0 +1,29 @@
+.post{
+    position: relative;
+    cursor: pointer;
+    height: 100%;
+    overflow: hidden;
+  }
+ .post .post-img{
+    height: 100%;
+    width: 100%;
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+    background-color: #f2f3f5 !important;
+  }
+ .post .details{
+    background: white;
+    padding: 45px 35px;
+    position: absolute;
+    top: 100%;
+    width: 100%;
+    transform: translate3d(0, -100px, 0);
+  }
+ .post .details h4{
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 2px;
+  }
+  

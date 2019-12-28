@@ -1,38 +1,139 @@
-.App {
+#blog-section{
+  padding: 100px 15px;
+  background: #f9f8f6;
+}
+#blog-section .title{
+  display: block;
+}
+#blog-section .title h3{
+  font-size: 2.5rem;
   text-align: center;
+  font-weight: 600;
+  margin-bottom: 35px;
+  color: #272c2f;
+  letter-spacing: 3px;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+#blog-section .title h1{
+  font-size: 3rem;
+  text-align: center;
+  font-weight: 700;
+  margin-bottom: 25px;
+  text-transform: uppercase;
+  color: #272c2f;
+  letter-spacing: 3px;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+#blog-section .title p{
+  font-size: .9rem;
+  text-align: center;
+  font-weight: 400;
+  margin-bottom: 80px;
+  color: #919191;
+  letter-spacing: 3px;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+#blog-section .filter{
+  display: block;
+  padding: 35px 0;
+}
+#blog-section .filter h4{
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: #272c2f;
+}
+#blog-section .filter select{
+  font-size: 1rem;
+  font-weight: 400;
+  margin-bottom: 15px;
+  color: #272c2f;
+  background: transparent;
+  padding: 0.4rem;
+  display: inline-block;
+  border-radius: 5px;
+}
+#blog-section .filter input[type="text"]{
+  font-size: 1rem;
+  font-weight: 400;
+  margin-bottom: 15px;
+  color: #272c2f;
+  background: transparent;
+  padding: 10px;
+  display: inline-block;
+  border-radius: 5px;
+  padding: 0.4rem;
+  width: 30%;
+  margin: 0 25px;  
+}
+#blog-section .filter .toggle{
+  color: #272c2f;
+  display: inline-block;
+}
+#blog-section .blog-container{
+  padding: 80px 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-rows: 588px;
+  grid-gap: 15px;
+  overflow: hidden;
+}
+#blog-section .message{
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+}
+#blog-section .display{
+  padding: 16px 20px 15px;
+  border-radius: 52px;
+  background: #ffb21a;
+  font-size: 1.1rem;
+  color: #fff;
+  font-weight: 400;
+  cursor: pointer;
+}
+#blog-section .infinite-scroll{
+  padding: 80px 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-rows: 588px;
+  grid-gap: 15px;
+  overflow: hidden;
 }
 
-.App-link {
-  color: #61dafb;
+/* Tablets */
+@media only screen and (max-width: 960px){
+  #blog-section .blog-container{
+    padding: 80px 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: 588px;
+    grid-gap: 15px;
+    overflow: hidden;
+  }
+}
+/*  Phones */
+@media only screen and (max-width: 767px){
+  #blog-section .title{
+    font-size: 3rem;
+  }
+  #blog-section .filter{
+    display: block;
+  }
+  #blog-section .blog-container{
+    padding: 80px 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-auto-rows: 588px;
+    grid-gap: 15px;
+    overflow: hidden;
+  }
+  #blog-section .infinite-scroll{
+    padding: 80px 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-auto-rows: 588px;
+    grid-gap: 15px;
+    overflow: hidden;
+  }
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+
+
