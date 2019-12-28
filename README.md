@@ -13,3 +13,6 @@ This is a blog application which displays post having images and titles
 
 ## Steps to run application:
 To run the application use 'npm start' on your terminal
+
+## Flow of Application:
+Index.js > App.js > Post.js
